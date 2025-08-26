@@ -30,9 +30,7 @@
         vagrant = lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            "./configuration.nix";
-            { 
-              inherit (sharedArgs) pkgs lib;
+            "./configuration.nix"
             {
               nixpkgs.config.allowUnfreePredicate = pkg: 
                 builtins.elem (lib.getName pkg) ["vscode"];
