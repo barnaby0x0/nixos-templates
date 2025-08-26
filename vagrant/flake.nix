@@ -15,7 +15,11 @@
         inherit lib;
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
       };
-      
+      paths = {
+        vagrant = {
+          configuration_file = "${self}/configuration.nix";
+        };
+      };      
       homeManagerModule = home-manager.nixosModules.home-manager;
       homeManagerSettings = {
         users.mutableUsers = false;
@@ -30,7 +34,7 @@
         vagrant = lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            "./configuration.nix"
+            paths.vagrant.configuration_file
             {
               nixpkgs.config.allowUnfreePredicate = pkg: 
                 builtins.elem (lib.getName pkg) ["vscode"];
