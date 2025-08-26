@@ -7,7 +7,7 @@
         path = ./server;
         description = "Manage NixOS server remotely";
       };
-      server = {
+      vagrant = {
         path = ./vagrant;
         description = "Vagrant NixOS server";
       };
