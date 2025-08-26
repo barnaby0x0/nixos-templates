@@ -30,7 +30,7 @@
         vagrant = lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            "./configuration.nix"
+            "./configuration.nix";
             { 
               inherit (sharedArgs) pkgs lib;
             {
