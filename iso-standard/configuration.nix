@@ -1,55 +1,40 @@
 { config, pkgs, ... }:
 
 {
-  # Définir stateVersion pour éviter l'avertissement
-  system.stateVersion = "25.05"; # Utilisez la version appropriée
-
-  # Configuration de l'utilisateur nixos avec tous les attributs requis
+  system.stateVersion = "25.05";
+  # Définir le mot de passe pour l'utilisateur nixos
   users.users.nixos = {
+    hashedPassword = "$6$X9Nl4WYPme3seZR.$kJP0Vph04KYU1BkSr.I4wBUklUIAJLTs5yhZqqwNkYxpazYweRmEFvyKkseBFdI2stzG6PrzLR/8kxyeb6yfO1";
     isNormalUser = true;
-    group = "nixos";
-    extraGroups = [ "networkmanager" "wheel" ]; # Pour les privilèges sudo
-    # Create password with openssl passwd -6 yourpassword
-    hashedPassword = "$6$2u4jbxPZh.SjV5z5$9axyOyNKHNVRRJHdrSrEQzlxZiV.zbmUWRknMGfm9sGFJ6CnmzkmQd7xXzWFPXoAvnFLEox1Xe39pzl08xuj70";
-  };
-  # users.users.nixos.openssh.authorizedKeys.keys = ["# CHANGE"];
-
-  # Créer le groupe nixos
-  users.groups.nixos = {};
-
-  # Configuration réseau
-  networking.hostName = "nixos-live";
-  networking.networkmanager.enable = true;
-
-  # Activer SSH
-  services.openssh = {
-    enable = true;
-    permitRootLogin = "no";
-    passwordAuthentication = true;
+    extraGroups = [ "wheel" ];
   };
 
-  # Autoriser les utilisateurs wheel à utiliser sudo
-  security.sudo = {
-    enable = true;
-    wheelNeedsPassword = false;
-  };
+  users.users.nixos.openssh.authorizedKeys.keys = ["# CHANGEME"];
 
-  # Inclure les outils nécessaires
-  environment.systemPackages = with pkgs; [
-    wget
-    curl
-    git
-    vim
+  security.sudo.extraRules = [
+  {
+    users = ["nixos"];
+    commands = [
+    {
+      command = "ALL";
+      options = ["NOPASSWD"];
+    }
+    ];
+  }
   ];
 
-  # Configuration spécifique à l'environnement live
-  isoImage = {
-    isoName = "nixos-custom.iso";
-    # contents = [
-    #   {
-    #     source = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/artwork/nixos";
-    #     target = "/background.png";
-    #   }
-    # ];
-  };
+  # Autres configurations nécessaires pour l'ISO
+  networking.hostName = "nixos-live";
+  
+  # Activer SSH si nécessaire pour nixos-anywhere
+  services.openssh.enable = true;
+  services.openssh.permitRootLogin = "yes";
+  
+  # Inclure les outils nécessaires
+  environment.systemPackages = with pkgs; [
+    nixos-anywhere
+    curl
+    wget
+    git
+  ];
 }
