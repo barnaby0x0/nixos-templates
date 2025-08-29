@@ -30,7 +30,7 @@
   # Autoriser les utilisateurs wheel à utiliser sudo
   security.sudo = {
     enable = true;
-    wheelNeedsPassword = true;
+    wheelNeedsPassword = false;
   };
 
   # Inclure les outils nécessaires
