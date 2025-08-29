@@ -20,18 +20,18 @@
   services.qemuGuest.enable = true;
 
   # Does it works ? Maybe useful to fix the Ip address for use after installation
-  networking = {
-    useDHCP = false;
-    interfaces.enp1s0 = {
-      useDHCP = false;
-      ipv4.addresses = [{
-        address = "192.168.122.100";
-        prefixLength = 24;
-      }];
-    };
-    defaultGateway = "192.168.122.1";
-    nameservers = [ "192.168.122.1" "8.8.8.8" ];
-  };
+  # networking = {
+  #   useDHCP = false;
+  #   interfaces.enp1s0 = {
+  #     useDHCP = false;
+  #     ipv4.addresses = [{
+  #       address = "192.168.122.100";
+  #       prefixLength = 24;
+  #     }];
+  #   };
+  #   defaultGateway = "192.168.122.1";
+  #   nameservers = [ "192.168.122.1" "8.8.8.8" ];
+  # };
 
 
   environment.systemPackages = map lib.lowPrio [
