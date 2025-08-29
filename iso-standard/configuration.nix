@@ -44,11 +44,11 @@
   # Configuration spécifique à l'environnement live
   isoImage = {
     isoName = "nixos-custom.iso";
-    contents = [
-      {
-        source = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/artwork/nixos";
-        target = "/background.png";
-      }
-    ];
+    # contents = [
+    #   {
+    #     source = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/artwork/nixos";
+    #     target = "/background.png";
+    #   }
+    # ];
   };
 }
