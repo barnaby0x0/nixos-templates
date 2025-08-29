@@ -9,6 +9,7 @@
     extraGroups = [ "wheel" ];
   };
 
+  # Important if you plan to use with a dedicated builder vm.
   users.users.nixos.openssh.authorizedKeys.keys = ["# CHANGEME"];
 
   security.sudo.extraRules = [
