@@ -8,7 +8,7 @@
   users.users.nixos = {
     isNormalUser = true;
     group = "nixos";
-    extraGroups = [ "wheel" ]; # Pour les privilèges sudo
+    extraGroups = [ "networkmanager" "wheel" ]; # Pour les privilèges sudo
     # Create password with openssl passwd -6 yourpassword
     hashedPassword = "$6$2u4jbxPZh.SjV5z5$9axyOyNKHNVRRJHdrSrEQzlxZiV.zbmUWRknMGfm9sGFJ6CnmzkmQd7xXzWFPXoAvnFLEox1Xe39pzl08xuj70";
   };
