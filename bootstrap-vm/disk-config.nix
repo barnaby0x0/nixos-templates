@@ -3,7 +3,7 @@
 {
   disko.devices = {
     disk.disk1 = {
-      device = lib.mkDefault "/dev/sda";
+      device = lib.mkDefault "/dev/sda"; # CHANGE ME lsblk
       type = "disk";
       content = {
         type = "gpt";
