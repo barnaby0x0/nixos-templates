@@ -12,6 +12,7 @@
     # Create password with openssl passwd -6 yourpassword
     hashedPassword = "$6$2u4jbxPZh.SjV5z5$9axyOyNKHNVRRJHdrSrEQzlxZiV.zbmUWRknMGfm9sGFJ6CnmzkmQd7xXzWFPXoAvnFLEox1Xe39pzl08xuj70";
   };
+  # users.users.nixos.openssh.authorizedKeys.keys = ["# CHANGE"];
 
   # Créer le groupe nixos
   users.groups.nixos = {};
