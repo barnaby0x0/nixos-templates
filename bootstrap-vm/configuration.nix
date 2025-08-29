@@ -19,6 +19,7 @@
   services.openssh.enable = true;
   services.qemuGuest.enable = true;
 
+  # Does it works ? Maybe useful to fix the Ip address for use after installation
   networking = {
     useDHCP = false;
     interfaces.enp1s0 = {
