@@ -59,7 +59,7 @@
     };
 
   users.users.user.openssh.authorizedKeys.keys = ["# CHANGE"] ++ (args.extraPublicKeys or []);
-  # users.users.root.openssh.authorizedKeys.keys = ["# CHANGE"] ++ (args.extraPublicKeys or []);
+  users.users.root.openssh.authorizedKeys.keys = ["# CHANGE"] ++ (args.extraPublicKeys or []);
 
   security.sudo.extraRules = [
   {
