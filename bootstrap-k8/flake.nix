@@ -7,10 +7,14 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    remoteConfig = {
+      url = "github:barnaby0x0/nixos?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { nixpkgs, disko, colmena, ... }:
+    { nixpkgs, disko, colmena, remoteConfig, ... }:
     {
       nixosConfigurations.demo = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -22,6 +26,7 @@
       colmenaHive = colmena.lib.makeHive {
         meta = {
           nixpkgs = nixpkgs.legacyPackages.x86_64-linux;
+          remoteConfig = remoteConfig;
         };
 
         defaults = { pkgs, ... }: {
@@ -29,7 +34,7 @@
             pkgs.curl
           ];
         };
-        demo = { pkgs, ... }: {
+        demo = { pkgs, meta, ... }: {
           deployment = {
             targetHost = "<hostname or ip>";
             targetPort = 22;
@@ -40,7 +45,7 @@
           nixpkgs.system = "x86_64-linux";
           imports = [
             disko.nixosModules.disko
-            ./configuration.nix
+            meta.remoteConfig.nixosModules.k8
           ];
           time.timeZone = "Europe/Paris";
         };
