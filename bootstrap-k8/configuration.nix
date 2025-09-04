@@ -9,11 +9,22 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     ./disk-config.nix
   ];
-  boot.loader.grub = {
-    # no need to set devices, disko will add all devices that have a EF02 partition to the list already
-    # devices = [ ];
-    efiSupport = true;
-    efiInstallAsRemovable = true;
+  # boot.loader.grub = {
+  #   # no need to set devices, disko will add all devices that have a EF02 partition to the list already
+  #   # devices = [ ];
+  #   efiSupport = true;
+  #   efiInstallAsRemovable = true;
+  # };
+
+   boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 10;
+    };
   };
   services.openssh.enable = true;
   services.qemuGuest.enable = true;

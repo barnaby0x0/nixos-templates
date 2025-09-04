@@ -1,52 +1,36 @@
-# Example to create a bios compatible gpt partition
 { lib, ... }:
 {
   disko.devices = {
-    disk.disk1 = {
-      device = lib.mkDefault "/dev/sda"; # CHANGE ME lsblk
+    disk.nvme0n1 = {
+      device = "/dev/nvme0n1";
       type = "disk";
       content = {
         type = "gpt";
         partitions = {
-          boot = {
-            name = "boot";
-            size = "1M";
-            type = "EF02";
-          };
-          esp = {
-            name = "ESP";
-            size = "500M";
-            type = "EF00";
+          # Partition EFI (identique à Arch)
+          efi = {
+            name = "EFI";
+            size = "512M";  # Taille typique pour une partition EFI
+            type = "EF00";  # Code pour partition EFI système
             content = {
               type = "filesystem";
-              format = "vfat";
-              mountpoint = "/boot";
+              format = "vfat";  # FAT32
+              mountpoint = "/boot";  # Point de montage (comme sur Arch)
+              mountOptions = [
+                "fmask=0077"
+                "dmask=0077"
+              ];
             };
           };
+          
+          # Partition racine (comme sur Arch)
           root = {
-            name = "root";
+            name = "ROOT";
             size = "100%";
             content = {
-              type = "lvm_pv";
-              vg = "pool";
-            };
-          };
-        };
-      };
-    };
-    lvm_vg = {
-      pool = {
-        type = "lvm_vg";
-        lvs = {
-          root = {
-            size = "100%FREE";
-            content = {
               type = "filesystem";
-              format = "ext4";
+              format = "ext4";  # Ou btrfs, selon votre préférence
               mountpoint = "/";
-              mountOptions = [
-                "defaults"
-              ];
             };
           };
         };
