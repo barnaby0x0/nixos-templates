@@ -7,6 +7,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    my-config = {
+      url = "github:barnaby0x0/nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -41,7 +45,8 @@
           nixpkgs.system = "x86_64-linux";
           imports = [
             disko.nixosModules.disko
-            ./configuration.nix
+            # ./configuration.nix
+            my-config.nixosModules.k8
           ];
           time.timeZone = "Europe/Paris";
         };
