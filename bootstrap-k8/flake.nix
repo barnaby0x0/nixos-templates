@@ -17,6 +17,7 @@
         modules = [
           disko.nixosModules.disko
           ./configuration.nix
+          ./hardware-configuration.nix # generate automatically by nixos-anywhere see: https://github.com/nix-community/nixos-anywhere/blob/main/docs/quickstart.md#8-prepare-hardware-configuration
         ];
       };
       colmenaHive = colmena.lib.makeHive {
